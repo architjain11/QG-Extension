@@ -4,8 +4,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const textInput = document.getElementById('textInput');
     const output = document.getElementById('output');
 
-    generateBtn.addEventListener('click', function () {
-        output.innerText = "Generated Questions";
+
+    generateBtn.addEventListener('click', async function () {
+        const inputText = document.getElementById('textInput').value;
+
+
+
+        try {
+
+            const response = await fetch('https://api-inference.huggingface.co/models/ZhangCheng/T5-Base-finetuned-for-Question-Generation', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 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',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "inputs": inputText })
+            });
+
+            const data = await response.json();
+
+
+            let generatedText = '';
+            data.forEach(item => {
+                generatedText += item.generated_text + '<br>';
+            });
+            console.log(generatedText);
+            output.innerHTML = generatedText;
+
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
     });
 
 
