@@ -7,29 +7,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     generateBtn.addEventListener('click', async function () {
         const inputText = document.getElementById('textInput').value;
+        const prompt1 = `<s> [INST] <SYS>Subjective</SYS>` + inputText;
+        const prompt = prompt1 + "[/INST]"
 
 
 
         try {
 
-            const response = await fetch('https://api-inference.huggingface.co/models/ZhangCheng/T5-Base-finetuned-for-Question-Generation', {
+            let response = await fetch("http://127.0.0.1:8080/completion", {
                 method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer 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',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ "inputs": inputText })
+                body: JSON.stringify({
+                    prompt,
+                    n_predict: 400,
+                })
+
             });
 
             const data = await response.json();
+            console.log(data);
 
+            output.innerHTML = data.content;
 
-            let generatedText = '';
+            /*let generatedText = '';
             data.forEach(item => {
                 generatedText += item.generated_text + '<br>';
             });
-            console.log(generatedText);
-            output.innerHTML = generatedText;
+            console.log(generatedText);*/
+            //output.innerHTML = data;
 
 
         } catch (error) {
