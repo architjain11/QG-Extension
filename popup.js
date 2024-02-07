@@ -26,3 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
         recognization.start();
     });
 });
+
+
+// highlight feature below
