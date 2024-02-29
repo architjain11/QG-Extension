@@ -2,39 +2,41 @@ document.addEventListener('DOMContentLoaded', function () {
     const generateBtn = document.getElementById('generateBtn');
     const micBtn = document.getElementById('micBtn');
     const textInput = document.getElementById('textInput');
-    const output = document.getElementById('output');
+    var output = document.getElementById('output');
 
 
     generateBtn.addEventListener('click', async function () {
         const inputText = document.getElementById('textInput').value;
         const prompt1 = `<s> [INST] <SYS>Subjective</SYS>` + inputText;
         const prompt = prompt1 + "[/INST]"
-
-
+        output.innerHTML = "";
+        output.classList.add("loader");
 
         try {
-
+            // Api call to the Llama model
             let response = await fetch("http://127.0.0.1:8080/completion", {
                 method: 'POST',
                 body: JSON.stringify({
                     prompt,
-                    n_predict: 400,
+                    n_predict: 50,
                 })
 
             });
-
+            // Formatting the output
             const data = await response.json();
             console.log(data);
-
-            output.innerHTML = data.content;
-
-            /*let generatedText = '';
-            data.forEach(item => {
-                generatedText += item.generated_text + '<br>';
+            var sentences = data.content.split('?');
+            var htmlString = '<ul>';
+            sentences.forEach(function (sentence) {
+                var lines = sentence.trim().split('\n');
+                lines.forEach(function (line) {
+                    htmlString += '<li>' + line.trim() + "?" + '</li>';
+                });
             });
-            console.log(generatedText);*/
-            //output.innerHTML = data;
+            htmlString += '</ul>';
+            output.classList.remove("loader");
 
+            output.innerHTML = htmlString;
 
         } catch (error) {
             console.error('Error:', error);
