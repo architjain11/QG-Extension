@@ -4,10 +4,13 @@
     "version": "1.0",
     "description": "Generate high quality questions on the input text.",
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "sidePanel"
     ],
-    
     "action": {
         "default_popup": "popup.html"
+    },
+    "side_panel": {
+        "default_path": "popup.html"
     }
 }

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(typeof scorecal);
         let prompt = "";
         if (questype === "option2") {
-            const prompt1 = `<s> [INST] ` + inputText;
+            const prompt1 = `<s> [INST] <SYS>MCQ</SYS> ` + inputText;
             prompt = prompt1 + "[/INST]</s>"
         }
         else {
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 body: JSON.stringify({
                     prompt: prompt,
-                    n_predict: 50,
+                    n_predict: 120,
                 })
 
             });
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var htmlString1 = '<ul>';
 
                 for (const { sentence, scores } of updatedSentences) {
-                    htmlString1 += '<li>' + sentence + 'Score:' + scores.score + '</li>';
+                    htmlString1 += '<li>' + sentence + ' Score:' + scores.score + '</li>';
 
                 }
                 htmlString1 += '</ul>';
