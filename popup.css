@@ -14,7 +14,8 @@ h2 {
     color: black;
 }
 
-#textInput, button {
+#textInput,
+button {
     margin: 10px;
     padding: 8px 12px;
     border: none;
@@ -23,6 +24,8 @@ h2 {
 
 #textInput {
     width: 200px;
+    height: 100px;
+    resize: vertical;
 }
 
 button {
@@ -37,7 +40,42 @@ button:hover {
 
 #output {
     margin-top: 20px;
-    padding: 10px;
+    padding: 10px 10px 10px 0px;
     background-color: lightblue;
     border-radius: 5px;
+    text-align: left;
+    font-size: 13px;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    padding: 10px;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 13px;
+
+}
+
+.loader:before {
+    margin-left: 60px;
+    content: "Generating questions.....";
+    clip-path: inset(0 100% 0 0);
+    animation: l5 2s steps(11) infinite;
+}
+
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+select {
+    font-size: small;
+}
+
+
+@keyframes l5 {
+    to {
+        clip-path: inset(0 -1ch 0 0)
+    }
 }
