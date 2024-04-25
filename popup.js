@@ -37,11 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(typeof scorecal);
         let prompt = "";
         if (questype === "option2") {
-            const prompt1 = `<s> [INST] <SYS>MCQ</SYS> ` + inputText;
+            const prompt1 = `<s> [INST] <<SYS>>MCQ Question<</SYS>> ` + inputText;
             prompt = prompt1 + "[/INST]</s>"
         }
         else {
-            const prompt1 = `<s> [INST] <SYS>Subjective</SYS>` + inputText;
+            const prompt1 = `<s> [INST]<<SYS>>Subjective Question<</SYS>>` + inputText;
             prompt = prompt1 + "[/INST]</s>"
         }
 
@@ -55,7 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 body: JSON.stringify({
                     prompt: prompt,
-                    n_predict: 120,
+                    n_predict: 60,
+
                 })
 
             });

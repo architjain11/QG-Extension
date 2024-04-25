@@ -39,7 +39,7 @@ extractor = KeyphraseExtractionPipeline(model=model_name)
 
 def quesgenerate(input_text,questype):
     if(questype=="option2"):
-        prompt1 = "<s> [INST] " + input_text
+        prompt1 = "<s> [INST]<SYS>MCQ</SYS>  " + input_text
         prompt = prompt1 + "[/INST]</s>"
     else:
         prompt1 = "<s> [INST] <SYS>Subjective</SYS>" + input_text
@@ -47,7 +47,7 @@ def quesgenerate(input_text,questype):
         
     payload = {
         'prompt': prompt,
-        'n_predict': 50
+        'n_predict': 60
     }
 
     # Define the URL
@@ -85,7 +85,7 @@ def answerquestion(context,question):
     results = rqugescore.compute(generated_questions=generated_questions, contexts=contexts, answers=answers)
     
     print(results["mean_score"])
-    return (results["mean_score"])
+    return (round(results["mean_score"],1))
 
 
 # Create pipeline for QA
@@ -117,7 +117,7 @@ def answer_question():
     # Use the QA pipeline to find answer
     
     
-    return jsonify({'score': results["mean_score"]})
+    return jsonify({'score': round(results["mean_score"],1)})
 
 
 
