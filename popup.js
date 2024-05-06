@@ -1,10 +1,14 @@
 
 
 document.addEventListener('DOMContentLoaded', function () {
+
     const generateBtn = document.getElementById('generateBtn');
     const micBtn = document.getElementById('micBtn');
     const textInput = document.getElementById('textInput');
+
     var output = document.getElementById('output');
+
+    output.style.display = "none";
     const scoreCalculationCheckbox = document.getElementById("scoreCalculation");
     const typeofques = document.getElementById("dropdown1");
     const useofques = document.getElementById("dropdown2");
@@ -27,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     generateBtn.addEventListener('click', async function () {
+        const output1 = document.getElementById('output1');
+        const outputlength = document.getElementById('outputlength').value;
+        console.log(outputlength);
+        console.log(typeof outputlength);
         const inputText = document.getElementById('textInput').value;
         const scorecal = scoreCalculationCheckbox.checked;
         const questype = typeofques.value;
@@ -37,14 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(typeof scorecal);
         let prompt = "";
         if (questype === "option2") {
-            const prompt1 = `<s> [INST] <<SYS>>MCQ Question<</SYS>> ` + inputText;
+            const prompt1 = `<s> [INST] <<SYS>>Generate only MCQ Questions.Dont generate answer<</SYS>> ` + inputText;
             prompt = prompt1 + "[/INST]</s>"
         }
         else {
-            const prompt1 = `<s> [INST]<<SYS>>Subjective Question<</SYS>>` + inputText;
+            const prompt1 = `<s> [INST]<<SYS>>Generate only Subjective Questions.Dont generate answer<</SYS>>` + inputText;
             prompt = prompt1 + "[/INST]</s>"
         }
-
+        output.style.display = "block";
         output.innerHTML = "";
         output.classList.add("loader");
 
@@ -55,7 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 body: JSON.stringify({
                     prompt: prompt,
-                    n_predict: 60,
+                    n_predict: Number(outputlength),
+                    temperature: 0.6,
+                    repetition_penalty: 1.3
 
                 })
 
@@ -69,8 +79,15 @@ document.addEventListener('DOMContentLoaded', function () {
             sentences.forEach(function (sentence) {
                 //  var lines = sentence.trim().split('\n');
                 //lines.forEach(function (line) {
-                sentencesArray.push(sentence);
-                htmlString += '<li>' + sentence + '</li>';
+                if (sentence.trim() !== "") {
+                    var str = sentence;
+                    var lastLetter = str[str.length - 1];
+                    if (questype === "option2" || (lastLetter == '?')) {
+                        sentencesArray.push(sentence);
+                        htmlString += '<li>' + sentence + '</li>';
+                    }
+
+                }
                 //  });
             });
             htmlString += '</ul>';
@@ -105,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var htmlString1 = '<ul>';
 
                 for (const { sentence, scores } of updatedSentences) {
+
                     htmlString1 += '<li>' + sentence + ' Score:' + scores.score + '</li>';
 
                 }
@@ -116,6 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
             //const updatedSentences = [];
 
             if (quesuse === "option2") {
+                output1.classList.add("loader1");
 
                 const response = await fetch('http://localhost:5000/open-ended', {
                     method: 'POST',
@@ -136,8 +155,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 let questions = "";
                 htmlString += '<ul>';
                 data1.forEach(function (data) {
-                    sentencesArray.push(data);
-                    htmlString += '<li>' + data + '</li>';
+                    if (data.trim() !== "") {
+                        var str = data;
+                        var lastLetter = str[str.length - 1];
+                        if (questype === "option2" || (lastLetter == '?')) {
+                            sentencesArray.push(data);
+                            htmlString += '<li>' + data + '</li>';
+                        }
+
+                    }
+                    //sentencesArray.push(data);
+                    //htmlString += '<li>' + data + '</li>';
                 })
                 var sentences = questions.split('?');
 
@@ -150,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     htmlString += '</ul>';*/
                 console.log(sentencesArray);
+                output1.classList.remove('loader1');
                 output.innerHTML = htmlString;
 
 

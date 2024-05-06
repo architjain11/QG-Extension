@@ -50,17 +50,17 @@ def quesgenerate(input_text,questype):
         'n_predict': 60
     }
 
-    # Define the URL
+    
     url = "http://127.0.0.1:8080/completion"
 
-    # Make the POST request
+    
     response = requests.post(url, data=json.dumps(payload))
 
-    # Check if the request was successful (status code 200)
+   
     if response.status_code == 200:
-        # Accessing the response content
+        
         data = response.json()
-        # Do something with the response data
+        
         print(data)
     else:
         # Handle the case where the request was not successful
@@ -153,11 +153,15 @@ def interviews():
         #questionlist.append(response["content"])
        
         for q in question_list:
-            if(scorecalc==True):
-                score=answerquestion(q,pagedata)
-                questions.append(str(q)+" Score:"+str(score))
-            else:
-                questions.append(q)
+            if q.strip()!="":
+                last_letter = q[-1]
+                if questype == "option2" or ( last_letter == '?'):
+                    if(scorecalc==True):
+                    
+                        score=answerquestion(q,pagedata)
+                        questions.append(str(q)+" Score:"+str(score))
+                    else:
+                        questions.append(q)
         
 
    

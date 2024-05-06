@@ -12,27 +12,35 @@
     <h2>Questions Generator</h2>
     <textarea type="text" id="textInput" placeholder="Input text"></textarea>
     <div>
-        <br>
-        <label for="scoreCalculation">Enable Score Calculation:</label>
-        <input type="checkbox" id="scoreCalculation" name="scoreCalculation">
-        <br>
-        <label for="dropdown1">Type of Questions:</label>
-        <select id="dropdown1">
-            <option value="option1" class="dropdown-text">Subjective</option>
-            <option value="option2" class="dropdown-text">MCQ</option>
-        </select>
-        <br>
-        <label for="dropdown2">Usecase of question:</label>
-        <select id="dropdown2">
-            <option value="option1" class="dropdown-text">Preperation for a test</option>
-            <option value="option2" class="dropdown-text">Preperation for an interview</option>
-            <option value="option3" class="dropdown-text">Nothing specific</option>
-        </select>
+        <div class="form-container">
+
+            <label for="scoreCalculation">Enable Score Calculation:</label>
+            <input type="checkbox" id="scoreCalculation" name="scoreCalculation">
+
+            <br>
+            <label for="Output Length">Output Length:</label>
+            <input type="number" id="outputlength" name="outputlength" min="30" max="600">
+            <br>
+
+            <label for="dropdown1">Type of Questions:</label>
+            <select id="dropdown1">
+                <option value="option1" class="dropdown-text">Subjective</option>
+                <option value="option2" class="dropdown-text">MCQ</option>
+            </select>
+            <br>
+            <label for="dropdown2">Usecase of question:</label>
+            <select id="dropdown2">
+                <option value="option1" class="dropdown-text">Preperation for a test</option>
+                <option value="option2" class="dropdown-text">Preperation for an interview</option>
+                <option value="option3" class="dropdown-text">Nothing specific</option>
+            </select>
+        </div>
     </div>
 
     <button id="generateBtn">Generate</button>
     <button id="micBtn"><i class="fa fa-microphone"></i></button>
     <div id="output"></div>
+    <div id="output1"></div>
     <button id="mail"><a href="mailto:someone@example.com">For any queries or feedback</a></button>
 
     <script src="popup.js"></script>
