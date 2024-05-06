@@ -93,11 +93,11 @@ document.addEventListener('DOMContentLoaded', function () {
             htmlString += '</ul>';
             output.classList.remove("loader");
             console.log(sentencesArray);
-            output.innerHTML = htmlString;
+            output.innerHTML += htmlString;
             const updatedSentences = [];
             if (scorecal === true) {
                 for (const sentence of sentencesArray) {
-                    const response = await fetch('http://localhost:5000/answer', {
+                    const response = await fetch('http://127.0.0.1:5000/answer', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -128,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 htmlString1 += '</ul>';
 
-                output.innerHTML = htmlString1;
+                output.innerHTML += htmlString1;
+
             }
 
             //const updatedSentences = [];
@@ -136,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (quesuse === "option2") {
                 output1.classList.add("loader1");
 
-                const response = await fetch('http://localhost:5000/open-ended', {
+                const response = await fetch('http://127.0.0.1:5000/open-ended', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -179,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     htmlString += '</ul>';*/
                 console.log(sentencesArray);
                 output1.classList.remove('loader1');
-                output.innerHTML = htmlString;
+                output.innerHTML += htmlString;
 
 
             }

@@ -72,7 +72,7 @@ button:hover {
 }
 
 .loader1:before {
-    margin-left: 60px;
+    margin-left: 20px;
     content: "Generating more questions.....";
     clip-path: inset(0 100% 0 0);
     animation: l5 2s steps(11) infinite;
