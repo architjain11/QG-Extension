@@ -78,6 +78,21 @@ button:hover {
     animation: l5 2s steps(11) infinite;
 }
 
+.score1 {
+    padding: 10px;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 13px;
+
+}
+
+.score1:before {
+    margin-left: 20px;
+    content: "Generating RQUGE scores.....";
+    clip-path: inset(0 100% 0 0);
+    animation: l5 2s steps(11) infinite;
+}
+
 a:link {
     color: white;
     background-color: transparent;

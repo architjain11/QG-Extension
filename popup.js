@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             output.innerHTML += htmlString;
             const updatedSentences = [];
             if (scorecal === true) {
+                output1.classList.add("score1");
                 for (const sentence of sentencesArray) {
                     const response = await fetch('http://127.0.0.1:5000/answer', {
                         method: 'POST',
@@ -120,15 +121,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 console.log(updatedSentences);
                 var htmlString1 = '<ul>';
+                output1.classList.remove("score1");
 
                 for (const { sentence, scores } of updatedSentences) {
-
                     htmlString1 += '<li>' + sentence + ' Score:' + scores.score + '</li>';
 
                 }
                 htmlString1 += '</ul>';
-
-                output.innerHTML += htmlString1;
+                output.innerHTML = htmlString1;
 
             }
 
@@ -155,13 +155,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(data1);
                 let questions = "";
                 htmlString += '<ul>';
-                data1.forEach(function (data) {
-                    if (data.trim() !== "") {
-                        var str = data;
+                data1.forEach(function (data1) {
+                    if (data1.trim() !== "") {
+                        var str = data1;
                         var lastLetter = str[str.length - 1];
                         if (questype === "option2" || (lastLetter == '?')) {
-                            sentencesArray.push(data);
-                            htmlString += '<li>' + data + '</li>';
+                            sentencesArray.push(data1);
+                            htmlString += '<li>' + data1 + '</li>';
                         }
 
                     }
