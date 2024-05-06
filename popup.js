@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     htmlString += '</ul>';*/
                 console.log(sentencesArray);
                 output1.classList.remove('loader1');
-                output.innerHTML += htmlString;
+                output.innerHTML = htmlString;
 
 
             }
