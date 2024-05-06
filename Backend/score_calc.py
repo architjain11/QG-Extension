@@ -47,7 +47,9 @@ def quesgenerate(input_text,questype):
         
     payload = {
         'prompt': prompt,
-        'n_predict': 60
+        'n_predict': 60,
+        'temperature': 0.7,
+        'repetition_penalty': 1.3
     }
 
     
